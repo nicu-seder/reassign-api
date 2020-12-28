@@ -18,10 +18,14 @@ app.use(cors());
 app.use(bodyParser.json());
 
 
+// app.get('/', (req, res)=>{
+//     db('opportunity').where('status', 'Exp').then(data=>{
+//         res.json(data);
+//     })
+// })
+
 app.get('/', (req, res)=>{
-    db('opportunity').where('status', 'Exp').then(data=>{
-        res.json(data);
-    })
+    res.send('It is working');
 })
 
 app.post('/byTm', (req, res)=>{
