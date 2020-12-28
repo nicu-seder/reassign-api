@@ -107,6 +107,6 @@ app.get('/tmList', (req, res)=>{
         })
 })
 
-app.listen(3005, ()=>{
-    console.log('I am listening')
+app.listen(process.env.PORT || 3005, ()=>{
+    console.log(`I am listening on port ${process.env.PORT}`)
 })
