@@ -42,6 +42,7 @@ app.post('/byTm', (req, res)=>{
             .then(data=>{
                 res.json(data);
             })
+            .catch(err=>res.status(400).json('cant fetch by TM'))
     }else{
         db
             .select('tendermanager' ,db.raw('COUNT(*)'))
@@ -54,6 +55,7 @@ app.post('/byTm', (req, res)=>{
             .then(data=>{
                 res.json(data);
             })
+            .catch(err=>res.status(400).json('cant fetch by TM'))
     }
 
 })
@@ -73,6 +75,7 @@ app.post('/opptDetails', (req, res)=>{
             .then(data=>{
                 res.json(data)
             })
+            .catch(err=>res.status(400).json('cant get oppt details'))
     }else{
         db('opportunity')
             .where({
@@ -84,6 +87,7 @@ app.post('/opptDetails', (req, res)=>{
             .then(data=>{
                 res.json(data)
             })
+            .catch(err=>res.status(400).json('cant get oppt details'))
     }
 
 
@@ -96,7 +100,8 @@ app.put('/assigntm', (req, res)=>{
         .update({
             tendermanager:tmName
         })
-        .then(data=>res.json(data));
+        .then(data=>res.json(data))
+        .catch(err=>res.status(400).json('cant assign tm'))
 })
 
 app.get('/tmList', (req, res)=>{
@@ -109,6 +114,7 @@ app.get('/tmList', (req, res)=>{
         .then(data=>{
             res.json(data);
         })
+        .catch(err=>res.status(400).json('cant get tm list'))
 })
 
 app.listen(process.env.PORT || 3005, ()=>{
