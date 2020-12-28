@@ -3,13 +3,21 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const knex = require('knex');
 
+// const db = knex({
+//     client:'pg',
+//     connection:{
+//         host:'postgresql-cubic-50319',
+//         user:'nicu',
+//         password:'231990',
+//         database:'rassign'
+//     }
+// });
+
 const db = knex({
     client:'pg',
     connection:{
-        host:'127.0.0.1',
-        user:'nicu',
-        password:'231990',
-        database:'rassign'
+        connectionString:process.env.DATABASE_URL,
+        ssl:true
     }
 });
 
