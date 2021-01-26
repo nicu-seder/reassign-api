@@ -122,6 +122,21 @@ app.put('/assigntm', (req, res) => {
         .catch(err => res.status(400).json('cant assign tm'))
 })
 
+app.put('/assignnewtm', (req, res)=>{
+    const {tmName, opptId} = req.body;
+    if(tmName){
+        db('opportunity')
+            .where('opportunityid', '=', opptId)
+            .update({
+                tendermanager: tmName,
+                status:'Exp'
+            })
+            .then(data => res.json(data))
+            .catch(err => res.status(400).json('cant assign a new tm'))
+    }
+
+})
+
 app.get('/tmList', (req, res) => {
     db
         .select('tendermanager')
@@ -133,6 +148,19 @@ app.get('/tmList', (req, res) => {
             res.json(data);
         })
         .catch(err => res.status(400).json('cant get tm list'))
+})
+
+app.get('/transferredTenders', (req, res)=>{
+    db
+        .select('*')
+        .from('opportunity')
+        .where({status:'Trs'})
+        .whereNotNull('team')
+        .orderBy('launchdate', 'desc')
+        .then(data=>{
+            res.json(data)
+        })
+        .catch(err=>res.status(400).json('cant get trasferred tenders'))
 })
 
 app.post('/predictTm', (req, res) => {
