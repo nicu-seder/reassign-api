@@ -241,6 +241,17 @@ app.post('/predictTm', (req, res) => {
         .catch(err => res.status(400).json('prediction failed'))
 })
 
+app.get('/handledTenders', (req, res)=>{
+    db
+        .select('*')
+        .from('opportunity')
+        .whereIn('status',['Sbm','Ong', 'UnSuc','Suc'])
+        .then(data=>{
+            res.json(data)
+        })
+        .catch(err=>res.status(400).json('cant get handled tenders'))
+})
+
 app.listen(process.env.PORT || 3005, () => {
     console.log(`I am listening on port ${process.env.PORT}`)
 })
